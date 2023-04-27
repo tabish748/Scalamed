@@ -17,6 +17,8 @@
     </form>
     <p>Click on resend code below if code not received in 2 min.</p>
     
-    <p class="text__center otpcode__left__seconds"> <span id="remaining_seconds"></span> Seconds</p>
+    <div class="otpcode__time__container mt-2">
+        <i class="icon-timer"></i><p class="text__center otpcode__left__seconds " id="remaining_seconds">  </p>
+    </div>
     </div>
 </rx-layout>

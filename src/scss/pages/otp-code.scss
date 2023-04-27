@@ -40,5 +40,10 @@
         color: c.$primary;
        }
     }
-    
+    &__time__container{
+        @include flex-center();
+        i{
+            color:c.$primary;
+        }
+    }
 }

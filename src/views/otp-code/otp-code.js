@@ -17,19 +17,30 @@ export async function otpCodeView()
         function main()
         {
             const otpInputs = document.querySelectorAll('.otpcode__form__input');
-
             otpInputs.forEach((input, index) => {
                 input.addEventListener('input', () => {
                     if (input.value.length === 1) {
                         if (index === otpInputs.length - 1) {
-                            document.getElementById('otp_form').submit();
+                            document.getElementById('otpcode_form').submit();
                         } else {
                             otpInputs[index + 1].focus();
                         }
                     }
                 });
             });
-            remaining_seconds.innerText = '120'
+            
+            let count = 120;
+            const timer = setInterval(function() {
+            if (count <= 0) {
+                clearInterval(timer);
+                remaining_seconds.textContent = "Timer has ended!";
+
+            } else {
+                remaining_seconds.textContent = count + " Seconds";
+                count--;
+            }
+            }, 1000);
+
         }
     }
 

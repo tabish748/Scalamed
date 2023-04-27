@@ -52,3 +52,11 @@
 .otpcode__left__seconds span {
   color: #008DFF;
 }
+.otpcode__time__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.otpcode__time__container i {
+  color: #008DFF;
+}
