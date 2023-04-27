@@ -1,0 +1,87 @@
+// @import "../../base/mixins";
+// @import "../../base/variables";
+
+.header
+{
+    width: 100%;
+    height: auto;
+    background-color: $background;
+    padding: .5rem;
+    position: static;
+    @include respond-to('large') 
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &__hamburger__icon {
+            height: 1.4rem;
+            margin: 1rem;
+            @include respond-to('large') 
+            {
+                 display: none;
+            }
+        }
+      }
+      &__menu__container
+      {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: -100%;
+        z-index: 10;
+        width: 70%;
+        height: 100vh;
+        background-color: white;
+        padding: 2rem 1rem;
+        transition: right 0.3s ease-in-out;
+        &.collapse{
+            right: 0;
+        }
+        @include respond-to('large') 
+        {
+             width: fit-content;
+             height: auto;
+             position: static;
+             display: block;
+        }
+        ul{
+            li {
+                display: block;
+                @include respond-to('large') 
+                {
+                     display: inline-block;
+                }
+                margin-left: 2rem;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+        }
+        
+      }
+    .icon-scalamed-logo
+    {
+        color: $primary;
+    }
+}
+.layout__container
+{
+    width: 100%;
+    height: auto;
+    display: block;
+    @include respond-to('large') {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #layout__wrapper{
+        padding: 1.5rem;
+      }
+}
