@@ -33,6 +33,15 @@
                 height: 4.875rem;
             }
         }
+        .error__message
+        {
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            margin-top: 1rem;
+            color: c.$danger;
+        }
+       
     }
     &__left__seconds{
        color: c.$primary;

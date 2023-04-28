@@ -7,7 +7,7 @@ Welcome to Login Screen
 </h2>
 <p id="invalidData"></p>
 
-<form id="myForm" method="POST" action-endpoint="https:www.scalamed.com/submit" data-validate>
+<form id="myForm" method="POST" data-validate>
     <div>
       <label for="email">Email:</label>
       <input type="text" value="faiza@scalamed.com" id="email" name="email"  data-error="required,minLength:3,isEmail" >

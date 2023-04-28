@@ -4,6 +4,7 @@ import { loadWelcomeView,} from './views/welcome/welcome.js';
 import { loginLayout,} from './views/login/login.js';
 import { getRxView,} from './views/get-rx/get-rx.js';
 import { otpCodeView } from './views/otp-code/otp-code.js';
+import { rxDownloadingView } from './views/rx-downloading/rx-downloading.js';
 
 const routes = 
 [
@@ -12,6 +13,7 @@ const routes =
     { path: '/login', template: loginLayout},
     { path: '/getrx', template: getRxView},
     { path: '/otpcode', template: otpCodeView},
+    { path: '/rxDownloading', template: rxDownloadingView},
 ];
 
 const router = Router.getInstance(routes);

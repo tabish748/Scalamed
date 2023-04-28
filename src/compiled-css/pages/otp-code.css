@@ -46,6 +46,13 @@
     height: 4.875rem;
   }
 }
+.otpcode__form .error__message {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1rem;
+  color: #dc3545;
+}
 .otpcode__left__seconds {
   color: #008DFF;
 }
