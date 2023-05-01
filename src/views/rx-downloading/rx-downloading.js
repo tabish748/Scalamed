@@ -1,10 +1,10 @@
 import Utils from '../../libs/utils.js';
-
+import RxLayout from '../../components/rx-layout/rx-layout.js';
 export async function rxDownloadingView()
 {
     //Here you can import files
     const template = await Utils.fetchTemplate('rx-downloading/rx-downloading.tpl');
-    const css = await Utils.loadCSS('../../compiled-css/pages/login.css');
+    const css = await Utils.loadCSS('../../compiled-css/pages/rx-downloading.css');
 
     //SEO
     Utils.setPageTitle('sample title');
@@ -15,14 +15,27 @@ export async function rxDownloadingView()
     const afterRender = () => 
     {
         Utils.setIdShortcuts(document, window);
-       
+        let currentPercentage = 0;
+        function updateProgressBar(percentage) 
+        {
+          progress_bar.style.width = `${percentage}%`;
+          current_percentage.innerText = `${percentage}%..`;
+        }
+        function incrementProgressBar() {
+          if (currentPercentage < 100) {
+            currentPercentage += 1;
+            updateProgressBar(currentPercentage);
+          } else {
+            clearInterval(incrementInterval);
+          }
+        }
+        const incrementInterval = setInterval(incrementProgressBar, 100); // Update every 100ms
     }
 
      // teardown will exectue when view will leave the DOM 
   const teardown = () => {
     test_btn.removeEventListener('click', handleBtn);
   };
-
     return {
         html: template,
         css: [css],

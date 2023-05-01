@@ -616,6 +616,26 @@ p, li, span {
   color: #F06363 !important;
 }
 
+.progress__bar__comp .progress__container {
+  width: 100%;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+.progress__bar__comp .progress__container .progress__bar {
+  height: 100%;
+  width: 0%; /* Initial width set to 0% */
+  background-color: #008DFF; /* Blue color */
+  border-radius: 4px;
+  transition: width 0.22s ease-in-out;
+}
+.progress__bar__comp .progress__counter {
+  text-align: left;
+  display: block;
+  margin-top: 0.6rem;
+}
+
 /* variables.scss */ /* mixins.scss */
 .example {
   -webkit-border-radius: 4px;
