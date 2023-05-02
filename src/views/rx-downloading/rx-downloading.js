@@ -1,5 +1,6 @@
 import Utils from '../../libs/utils.js';
 import RxLayout from '../../components/rx-layout/rx-layout.js';
+import ProgressBar from '../../components/progress-bar/progress-bar.js';
 export async function rxDownloadingView()
 {
     //Here you can import files
@@ -15,26 +16,20 @@ export async function rxDownloadingView()
     const afterRender = () => 
     {
         Utils.setIdShortcuts(document, window);
-        let currentPercentage = 0;
-        function updateProgressBar(percentage) 
+        ProgressBar.initialize(initProgressBar);
+        function initProgressBar() 
         {
-          progress_bar.style.width = `${percentage}%`;
-          current_percentage.innerText = `${percentage}%..`;
+          const progressBar = document.getElementById('progress_bar');
+          progressBar.addEventListener('progress-complete', () => {
+            //now redirect here to next screen using router
+            console.log('yahuuu its working');
+          });
         }
-        function incrementProgressBar() {
-          if (currentPercentage < 100) {
-            currentPercentage += 1;
-            updateProgressBar(currentPercentage);
-          } else {
-            clearInterval(incrementInterval);
-          }
-        }
-        const incrementInterval = setInterval(incrementProgressBar, 100); // Update every 100ms
     }
 
      // teardown will exectue when view will leave the DOM 
   const teardown = () => {
-    test_btn.removeEventListener('click', handleBtn);
+    
   };
     return {
         html: template,

@@ -1,4 +1,5 @@
 import Router from './routes/router.js';
+import './env.js'
 import { loadAboutView,} from './views/about/about.js';
 import { loadWelcomeView,} from './views/welcome/welcome.js';
 import { loginLayout,} from './views/login/login.js';
@@ -17,7 +18,6 @@ const routes =
 ];
 
 const router = Router.getInstance(routes);
-
 document.body.addEventListener('click', (e) => 
   {
     if (e.target.matches('[data-link]')) {
