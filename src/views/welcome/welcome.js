@@ -18,10 +18,6 @@ export async function loadWelcomeView()
         function main()
         {
             Utils.setIdShortcuts(document, window);
-         setTimeout(() => {
-            const apiUrl = process.env.WEBPACK_API_URL;
-            console.log('item', process.env.WEBPACK_API_URL)
-         }, 1000);
         }
     }
 
