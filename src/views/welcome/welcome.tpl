@@ -24,7 +24,7 @@
                      <p>
                          Access your prescriptions directly and immediately. You can always download our app later if you want to continue using ScalaMed.
                      </p>
-                       <button-action label-txt="Continue" primary className="mt-4" redirect-link="getrx"></button-action>
+                       <button-action label-txt="Continue" primary className="mt-4" redirect-link="identityVerification"></button-action>
                  </div>
              </div>
          </div>

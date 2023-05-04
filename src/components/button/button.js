@@ -37,15 +37,13 @@ class ButtonAction extends HTMLElement
   {
    if(type === true)
   {
-    console.log('loading true')
     this.text.hidden = true;
     this.spinner.hidden= false;
   }
    else
    {
-    console.log('loading false')
     this.spinner.hidden= true;
-   this.text.hidden = false;
+    this.text.hidden = false;
 
    }
   }

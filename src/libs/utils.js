@@ -120,6 +120,20 @@ class Utils {
     document.head.appendChild(link);
   });
   }
+  static showApiError(input, errorMessage)
+  {
+    const errorElement = Utils.createElement('div', {class: 'error-message'}, []);
+    input.parentNode.insertBefore(errorElement, input.nextSibling);
+    input.parentNode.classList.add('error')
+    if (errorElement) {
+      errorElement.textContent = errorMessage;
+    } else {
+      const errorDiv = document.createElement('div');
+      errorDiv.classList.add('error-message');
+      errorDiv.textContent = errorMessage;
+      input.parentElement.appendChild(errorDiv);
+    }
+  }
   
 }
 export default Utils;

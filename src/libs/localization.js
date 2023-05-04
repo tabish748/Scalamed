@@ -15,8 +15,8 @@ export class Localization {
   
     // Utility function to translate a key from the loaded translation file.
     translate(key, translations,  dynamicValues = {}) {
-      if (translations.apiError && translations.apiError[key]) {
-        let translatedText = translations.apiError[key];
+      if (translations.web && translations.web[key]) {
+        let translatedText = translations.web[key];
         // Replace dynamic values in the translated text
         for (const [placeholder, value] of Object.entries(dynamicValues)) {
           translatedText = translatedText.replace(`{${placeholder}}`, value);
@@ -37,7 +37,7 @@ export class Localization {
   
     // Function to update the UI elements with translated text.
      updateUI(translations) {
-      const translationKeys = Object.keys(translations.apiError).concat(Object.keys(translations.error));
+      const translationKeys = Object.keys(translations.web).concat(Object.keys(translations.error));
     
       requestAnimationFrame(() => {
         translationKeys.forEach(key => {

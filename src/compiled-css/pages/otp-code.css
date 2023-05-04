@@ -51,19 +51,5 @@
   margin: 0 auto;
   display: block;
   margin-top: 1rem;
-  color: #dc3545;
-}
-.otpcode__left__seconds {
-  color: #008DFF;
-}
-.otpcode__left__seconds span {
-  color: #008DFF;
-}
-.otpcode__time__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.otpcode__time__container i {
-  color: #008DFF;
+  color: #F06363;
 }

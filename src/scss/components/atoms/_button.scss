@@ -19,12 +19,12 @@ button-action
       color: c.$white;
     }
     &--primary {
-      background-color: c.$primary !important;
+      background-color: c.$primary;
       color: c.$white;
     }
   
     &.secondaryBtn {
-      background-color: black !important;
+      background-color: c.$black;
     }
   
     &.mediumBtn {
@@ -50,5 +50,8 @@ button-action
   font-size: 0;
   animation: spin 1.2s linear infinite;
 }
-
+.disabled__button{
+  background-color: $disabled!important;
+  color: $white!important;
+}
 

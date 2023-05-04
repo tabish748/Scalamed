@@ -3,17 +3,15 @@ import './env.js'
 import { loadAboutView,} from './views/about/about.js';
 import { loadWelcomeView,} from './views/welcome/welcome.js';
 import { loginLayout,} from './views/login/login.js';
-import { getRxView,} from './views/get-rx/get-rx.js';
-import { otpCodeView } from './views/otp-code/otp-code.js';
 import { rxDownloadingView } from './views/rx-downloading/rx-downloading.js';
+import { identityVerificationView } from './views/identity-verification/identity-verification.js';
 
 const routes = 
 [
     { path: '/', template: loadWelcomeView },
     { path: '/about', template: loadAboutView},
     { path: '/login', template: loginLayout},
-    { path: '/getrx', template: getRxView},
-    { path: '/otpcode', template: otpCodeView},
+    { path: '/identityVerification', template: identityVerificationView},
     { path: '/rxDownloading', template: rxDownloadingView},
 ];
 

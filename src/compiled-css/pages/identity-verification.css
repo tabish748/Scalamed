@@ -25,28 +25,6 @@
 .rx__section form .calendar__box {
   position: relative;
 }
-.rx__section form .calendar__box input[type=date] {
-  border: 2px solid #e9ecef;
-  background-color: #ffffff;
-  width: 100%;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 6px;
-  font-size: 22px;
-  color: #808080;
-  text-transform: uppercase;
-  position: relative;
-}
-.rx__section form .calendar__box input[type=date] + i {
-  position: absolute;
-  right: 3%;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  margin-top: -1px;
-  font-size: 1.7rem;
-  color: gray;
-}
 .rx__section form .calendar__box input[type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   right: 0;
@@ -59,4 +37,31 @@
   margin: 0;
   opacity: 0;
   cursor: pointer;
+}
+.rx__section form .calendar__box i {
+  color: #adb5bd;
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+}
+.rx__section form .icon-timer {
+  color: #008DFF !important;
+}
+.rx__section__left__seconds {
+  color: #008DFF;
+}
+.rx__section__left__seconds span {
+  color: #008DFF;
+}
+.rx__section__time__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  z-index: 10;
+}
+.rx__section__time__container i {
+  color: #008DFF;
 }

@@ -972,5 +972,11 @@
         "busyRemindMeLater": "Busy? Remind me later",
         "userProfile": "User Profile",
         "yourPrescription": "Your Prescriptions"
+    },
+    "web":{
+        "resendNotification": "Click on resend, if code not received in 2 mins",
+        "verifyYourIdentity": "Verify your identity",
+        "toDownloadPrescription": "To download your prescription, confirm your date of birth. You will receive a unique code via text to enter."
     }
+    
 }
