@@ -82,6 +82,10 @@
         justify-content: center;
       }
       #layout__wrapper{
+        width: 100%;
         padding: 1.5rem;
+        > div:first-child {
+          margin: 0 auto;
+        }
       }
 }

@@ -814,7 +814,11 @@ button-action .theme__btn.largeBtn {
   }
 }
 .layout__container #layout__wrapper {
+  width: 100%;
   padding: 1.5rem;
+}
+.layout__container #layout__wrapper > div:first-child {
+  margin: 0 auto;
 }
 
 .footer {

@@ -5,6 +5,7 @@ import { loadWelcomeView,} from './views/welcome/welcome.js';
 import { loginLayout,} from './views/login/login.js';
 import { rxDownloadingView } from './views/rx-downloading/rx-downloading.js';
 import { identityVerificationView } from './views/identity-verification/identity-verification.js';
+import { findPharmacyView } from './views/find-pharmacy/find-pharmacy.js';
 
 const routes = 
 [
@@ -13,6 +14,7 @@ const routes =
     { path: '/login', template: loginLayout},
     { path: '/identityVerification', template: identityVerificationView},
     { path: '/rxDownloading', template: rxDownloadingView},
+    { path: '/findPharmacy', template: findPharmacyView},
 ];
 
 const router = Router.getInstance(routes);
