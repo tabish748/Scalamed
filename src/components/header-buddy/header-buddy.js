@@ -14,7 +14,6 @@ class HeaderBuddy extends HTMLElement {
     }
     onMenuClick()
     {
-      console.log('enteredd')
       nav_menu_container.classList.add('collapse');
     }
     handleOutsideClick(event) {
@@ -34,7 +33,7 @@ class HeaderBuddy extends HTMLElement {
               <div class="header__menu__container" id="nav_menu_container">
                   <ul>
                       <li><a href="/" data-link> Home </a></li>
-                      <li><a href="/login" data-link> Contact </a></li>
+                      <li><a href="/" data-link> Contact </a></li>
                       <li><a href="/" data-link> Privacy & Terms </a></li>
                      
                   </ul>
