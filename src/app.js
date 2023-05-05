@@ -31,4 +31,4 @@ document.body.addEventListener('click', (e) =>
 
 window.addEventListener('popstate', () => {
     router.loadRoute(window.location.pathname.split('/').slice(1));
-});
+}); 

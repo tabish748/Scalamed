@@ -3,8 +3,8 @@ import { dirname } from 'path';
 import path from 'path';
 import webpack from 'webpack';
 import dotenv from 'dotenv';
-import HtmlWebpackPlugin from 'html-webpack-plugin'; // Import the plugin
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'; // Import the plugin
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -52,6 +52,10 @@ export default {
         generator: {
           filename: 'images/[hash][ext]',
         },
+      },
+      {
+        test: /\.tpl$/,
+        use: 'raw-loader',
       },
     ],
   },
