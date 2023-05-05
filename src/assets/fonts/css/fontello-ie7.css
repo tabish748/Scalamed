@@ -205,3 +205,6 @@
 .icon-calendar-brief { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c0;&nbsp;'); }
 .icon-lock-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c1;&nbsp;'); }
 .icon-downloading { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c2;&nbsp;'); }
+.icon-filter { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c3;&nbsp;'); }
+.icon-mappointer { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c4;&nbsp;'); }
+.icon-listview { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8c5;&nbsp;'); }

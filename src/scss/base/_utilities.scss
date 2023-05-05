@@ -66,27 +66,6 @@ $spacing-unit: 8px;
 .pos__fixed { position: fixed; }
 .pos__sticky { position: sticky; }
 
-// inputs
-input[type= 'text'],input[type= 'number'],input[type= 'email'], input[type= 'date']
-{
-    border: 2px solid $gray-200;
-    background-color: $white;
-    width: 100%;
-    padding: 20px;
-    margin: 18px 0 12px 0;
-    border-radius: 6px;
-    font-size: 22px;
-    color: $gray-600;
-    text-transform: capitalize;
-    position: relative;
-}
-input[type= 'text']::placeholder
-{
-    color: $gray-600;
-}
-input[type= 'date']{
-    text-transform: uppercase!important;
-}
 
 // containers
 .container

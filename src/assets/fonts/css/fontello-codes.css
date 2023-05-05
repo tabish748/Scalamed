@@ -194,3 +194,6 @@
 .icon-calendar-brief:before { content: '\e8c0'; } /* '' */
 .icon-lock-1:before { content: '\e8c1'; } /* '' */
 .icon-downloading:before { content: '\e8c2'; } /* '' */
+.icon-filter:before { content: '\e8c3'; } /* '' */
+.icon-mappointer:before { content: '\e8c4'; } /* '' */
+.icon-listview:before { content: '\e8c5'; } /* '' */

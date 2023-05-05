@@ -43,7 +43,21 @@
             <div class="pharmacy__find__section">
                 <div class="heading__and__icons__wrapper">
                     <h2>Find Pharmacy</h2>
-                    <div class="icons__list__wrapper"></div>
+                    <div class="icons__list__wrapper">
+                        <ul>
+                            <li> <i class="icon-mapview"></i></li>
+                            <li> <i class="icon-mappointer"></i></li>
+                            <li> <i class="icon-filter"></i></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pharmacy__search__section">
+                    <input type="text" placeholder="Search pharmacy by zip code, address or name" id="search_input">
+                    <div class="spinner" id="search_spinner"></div>
+                <div class="pharmacy__suggestions__wrapper" id="suggestions_container" hidden="true">
+                    <ul id="suggestions"></ul>
+                </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-// services/userService.js
 
 import userRepository from '../../repositories/user/user-repository.js';
 
@@ -22,4 +21,3 @@ export async function loginUser(user) {
   }
 }
 
-// Add more user-related business logic and operations here

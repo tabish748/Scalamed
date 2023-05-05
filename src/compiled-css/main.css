@@ -509,27 +509,6 @@ q::after {
   position: sticky;
 }
 
-input[type=text], input[type=number], input[type=email], input[type=date] {
-  border: 2px solid #e9ecef;
-  background-color: #ffffff;
-  width: 100%;
-  padding: 20px;
-  margin: 18px 0 12px 0;
-  border-radius: 6px;
-  font-size: 22px;
-  color: #6c757d;
-  text-transform: capitalize;
-  position: relative;
-}
-
-input[type=text]::placeholder {
-  color: #6c757d;
-}
-
-input[type=date] {
-  text-transform: uppercase !important;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -727,6 +706,27 @@ button-action .theme__btn.largeBtn {
 .disabled__button {
   background-color: #DFDFDF !important;
   color: #ffffff !important;
+}
+
+input[type=text], input[type=number], input[type=email], input[type=date] {
+  border: 2px solid #e9ecef;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 20px;
+  margin: 18px 0 12px 0;
+  border-radius: 6px;
+  font-size: 22px;
+  color: #6c757d;
+  text-transform: capitalize;
+  position: relative;
+}
+
+input[type=text]::placeholder {
+  color: #6c757d;
+}
+
+input[type=date] {
+  text-transform: uppercase !important;
 }
 
 .error-message {

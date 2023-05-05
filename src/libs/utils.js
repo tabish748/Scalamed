@@ -134,6 +134,17 @@ class Utils {
       input.parentElement.appendChild(errorDiv);
     }
   }
+  static extractNumericWord(str)
+  {
+    const Regex = /\d+/;
+    const code = str.match(Regex);
+  
+    if (code) {
+      return code[0];
+    } else {
+      return null;
+    }
+  }
   
 }
 export default Utils;

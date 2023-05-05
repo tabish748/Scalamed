@@ -1,6 +1,7 @@
 import Utils from '../../libs/utils.js';
 import RxLayout from '../../components/rx-layout/rx-layout.js';
 import ProgressBar from '../../components/progress-bar/progress-bar.js';
+import Router from '../../routes/router.js';
 export async function rxDownloadingView()
 {
     //Here you can import files
@@ -22,7 +23,8 @@ export async function rxDownloadingView()
           const progressBar = document.getElementById('progress_bar');
           progressBar.addEventListener('progress-complete', () => {
             //now redirect here to next screen using router
-            console.log('yahuuu its working');
+            const router = Router.getInstance();
+            router.navigateTo(`${window.location.origin}/findPharmacy`);
           });
         }
     }
