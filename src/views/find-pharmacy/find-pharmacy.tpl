@@ -46,8 +46,8 @@
                     <div class="icons__list__wrapper">
                         <ul>
                             <li> <i class="icon-mapview"></i></li>
-                            <li> <i class="icon-mappointer"></i></li>
-                            <li> <i class="icon-filter"></i></li>
+                            <li id="nearby_pharmacies"> <i class="icon-mappointer active"></i></li>
+                            <li> <i class="icon-filter active"></i></li>
                         </ul>
                     </div>
                 </div>
@@ -59,6 +59,10 @@
                     <ul id="suggestions"></ul>
                 </div>
                 </div>
+            </div>
+
+            <div class="list__wrapper" id="list_wrapper">
+              
             </div>
         </div>
     </div>

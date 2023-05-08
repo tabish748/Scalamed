@@ -12,7 +12,8 @@
     "scss-watch": "sass --no-source-map --watch src/scss:src/compiled-css",
     "scss-compile": "sass --no-source-map src/scss:src/compiled-css",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "serve-build": "http-server dist -p 8080 -P http://localhost:8080/?"
   },
   "author": "tabish",
   "license": "ISC",
@@ -30,10 +31,12 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.1",
+    "html-webpack-tags-plugin": "^3.0.2",
     "lit-html": "^2.7.0",
     "mini-css-extract-plugin": "^2.7.5",
     "onchange": "^7.1.0",

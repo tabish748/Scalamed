@@ -65,7 +65,10 @@ class Utils {
   }
 
   static async fetchTemplate(templatePath) {
-    const response = await fetch(`views/${templatePath}`);
+    const baseUrl = window.location.origin;
+
+    const response = await fetch(`${baseUrl}/views/${templatePath}`);
+    console.log('response', response)
     if (!response.ok) {
       throw new Error(`Error fetching template ${templatePath}`);
     }
@@ -109,16 +112,15 @@ class Utils {
     while ((currentObj = Object.getPrototypeOf(currentObj)));
     return [...properties.keys()].filter(item => typeof obj[item] === 'function');
   }
-  static loadCSS(url)
-  {
+  static loadCSS(url) {
     return new Promise((resolve, reject) => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = url;
-    link.onload = () => resolve(link);
-    link.onerror = (error) => reject(error);
-    document.head.appendChild(link);
-  });
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `${url}?t=${Date.now()}`; // Add timestamp
+      link.onload = () => resolve(link);
+      link.onerror = (error) => reject(error);
+      document.head.appendChild(link);
+    });
   }
   static showApiError(input, errorMessage)
   {
@@ -146,5 +148,28 @@ class Utils {
     }
   }
   
+  static getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            resolve({ latitude, longitude });
+          },
+          (error) => {
+            reject(error);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          }
+        );
+      } else {
+        reject(new Error('Geolocation not supported by this browser'));
+      }
+    });
+  }
 }
 export default Utils;

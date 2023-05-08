@@ -5,6 +5,8 @@ import webpack from 'webpack';
 import dotenv from 'dotenv';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackTagsPlugin from 'html-webpack-tags-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,9 +65,39 @@ export default {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      inject: 'head',
+      scriptLoading: 'defer',
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: 'compiled-css/[name].css',
     }),
+    new HtmlWebpackTagsPlugin({
+      links: ['compiled-css/main.css'],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/views/**/*.tpl',
+          to({ context, absoluteFilename }) {
+            return path.relative(path.join(context, 'src'), absoluteFilename);
+          },
+        },
+        {
+          from: 'src/translations/*.json',
+          to({ context, absoluteFilename }) {
+            return path.relative(context, absoluteFilename);
+          },
+        },
+        {
+          from: 'src/compiled-css/**/*.css',
+          to({ context, absoluteFilename }) {
+            return path.relative(path.join(context, 'src'), absoluteFilename);
+          },
+        },
+        
+      ],
+    }),
+    
+    
   ],
 };

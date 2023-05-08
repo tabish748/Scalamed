@@ -32,6 +32,11 @@
     justify-content: center;
     align-items: center;
   }
+  @mixin text-one-line {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
   @mixin vertical-margin-1 {
       margin: 1rem 0;
   }

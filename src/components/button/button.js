@@ -64,7 +64,8 @@ class ButtonAction extends HTMLElement
     }
     if(this.hasAttribute('w-100'))
     {
-      this.submit_btn.classList.add('w__100')
+      this.submit_btn.classList.add('w__100');
+      this.classList.add('w__100');
     }
     if(this.hasAttribute('className'))
     {
@@ -73,6 +74,10 @@ class ButtonAction extends HTMLElement
     if(this.hasAttribute('type'))
     {
       this.submit_btn.type = this.getAttribute('type');
+    }
+    if(this.hasAttribute('small'))
+    {
+      this.submit_btn.classList.add('theme__btn--small')
     }
   }
 

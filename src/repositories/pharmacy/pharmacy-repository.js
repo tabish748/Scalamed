@@ -1,7 +1,7 @@
 // repositories/userRepository.js
 
 import pharmacyApi from "../../api/pharmacy/pharmacy-api.js";
-
+import {findDrugPricesByZipResponse, findDrugPricesByGeo} from '../response.js'
 class PharmacyRepository {
   async findSearchTermSuggestions(data) {
     // return pharmacyApi.findSearchTermSuggestions(data);
@@ -28,7 +28,15 @@ class PharmacyRepository {
     }
   }
 
+  async findDrugPricesByZip(data) {
+    // return pharmacyApi.findSearchTermSuggestions(data);
+    return findDrugPricesByZipResponse;
+    }
+    async findDrugPricesByGeo(data) {
+      // return pharmacyApi.findSearchTermSuggestions(data);
+      return findDrugPricesByGeo;
+      }
+  }
 
-}
 
 export default new PharmacyRepository();
