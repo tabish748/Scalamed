@@ -7,7 +7,7 @@ class ProgressBar extends HTMLElement {
     super();
 
     this.currentPercentage = 0;
-    this.loadingTime = 100;
+    this.loadingTime = 10;
   }
 
   connectedCallback() {

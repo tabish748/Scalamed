@@ -976,7 +976,10 @@
     "web":{
         "resendNotification": "Click on resend, if code not received in 2 mins",
         "verifyYourIdentity": "Verify your identity",
-        "toDownloadPrescription": "To download your prescription, confirm your date of birth. You will receive a unique code via text to enter."
+        "toDownloadPrescription": "To download your prescription, confirm your date of birth. You will receive a unique code via text to enter.",
+        "searchforPharmaciesHeading": "Search for pharmacies",
+        "searchforPharmaciesText": "Use current location or enter zip code to search"
+
     }
     
 }

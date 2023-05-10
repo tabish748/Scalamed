@@ -21,8 +21,8 @@ class RxLayout extends HTMLElement {
         <header-buddy></header-buddy>
         <div id="layout__wrapper">
         </div>
-        <footer-buddy></footer-buddy>
         </div>
+        <footer-buddy></footer-buddy>
       `;
     const doc = Utils.toDocument(html); // build template from html
     const main_elem = doc.getElementById("layout__wrapper");

@@ -167,3 +167,10 @@ p,li,span {
   margin-top: .6rem;
 }
 }
+.hide__mob{
+  display: none;
+  @include respond-to('large') 
+  {
+    display: block;
+  }
+}

@@ -9,10 +9,18 @@
         {
             padding: 4rem;
         }
+        .heading__buddy{
+            text-align: left;
+            @include respond-to('large') 
+            {
+                text-align: center;
+            }
+        }
     }
     &__prescription{
         &__section{
             width: 100%;
+            margin-top: 1rem;
             &.open{
                 .pharmacy__prescription__detail{
                     height: 250px;
@@ -64,18 +72,28 @@
                 b{
                     display: block;
                     color:c.$primary;
+                    @include responsive-font(1rem, 1.2rem);
                 }
                 p{
                     font-size: .8rem;
                 }
                 table {
+                   width: 100%;
+                   tbody{
+                    @include respond-to('large') 
+                    {
+                      display: flex;
+                      justify-content: space-between;
+                      width: 60%;
+                    }
+                   }
                     tr{
                         td:first-child{
                             color: c.$gray-700;
                             font-weight: normal;
                         }
                         td{
-                            font-size: 0.75rem;
+                            @include responsive-font(.8rem, 1.2rem);
                             padding: 0.5rem;
                             font-weight: bold;
                         }
@@ -106,6 +124,7 @@
         border-radius: 0.563rem;
         padding: 1rem;
         margin-top: 1rem;
+        position: relative;
         .heading__and__icons__wrapper{
             width: 100%;
             display: flex;
@@ -114,8 +133,7 @@
             .icons__list__wrapper{
                 width: fit-content;
                 ul{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
+                    display: flex;
                     gap: .5rem;
                     li{
                         border: thin solid c.$gray-500;
@@ -123,13 +141,26 @@
                         height: 2.2rem;
                         margin-left: 0.3rem;
                         border-radius: 6px;
+                        cursor: pointer;
                         @include flex-center();
+                        @include respond-to('large') 
+                        {
+                         width: fit-content;
+                         padding: 1.2rem 1rem;
+                        }
                         i{
                             color: c.$gray-700;
                             font-size: 1.3rem;
                         }
-                        i.active{
-                            color: c.$primary
+                    }
+                    li.active{
+                        border: thin solid c.$primary;
+                       i{
+                        color: c.$primary;
+                       }
+                        p{
+                            margin-left: .5rem;
+                            color: c.$primary;
                         }
                     }
                 }
@@ -142,7 +173,7 @@
         height: auto;
         position: relative;
         input{
-        @include responsive-font(12px, 22px);
+        @include responsive-font(0.75rem, 1.2rem);
         padding: 1rem;
         }
         .spinner {
@@ -173,12 +204,13 @@
         top: unset;
         left: 0;
         right: 0;
-        
+        z-index: 2;
         ul{
             li{
                 border-bottom: thin solid c.$gray-200;
                 padding: 10px 0;
-                font-size: 12px;
+                @include responsive-font(.9rem, 1rem);;
+                cursor: pointer;
             }
         }
     }
@@ -191,6 +223,7 @@
         margin-top: 1rem;
         border-radius:$border-radius-base;
         overflow: hidden;
+        
     }
     &__card
     {
@@ -199,15 +232,44 @@
         background-color: c.$white;
         border-bottom: thin solid c.$light-gray;
         padding: 1rem;
-       
         display: grid;
         grid-template-columns: 6fr 4fr;
         gap: 1rem;
+        @include respond-to('large') 
+        {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        padding: 2rem;
+        }
         &__name{
+            h3
+            {
+                @include responsive-font(1.2rem, 22px);
+            }
             @include text-one-line();
-           
         }
         &__schedule{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            @include respond-to('large') 
+            {
+              display: block;
+            }
+            span
+            {
+                display: block;
+            }
+            p
+            {
+                display: inline-block;
+                margin-right: 0.4rem;
+            }
+            @include respond-to('large') 
+            {
+                grid-column-start: 2;
+                grid-row-start: 1;
+                text-align: left;
+            }
             .open{
                 color: c.$success;
             }
@@ -217,26 +279,93 @@
         }
         &__price{
             text-align: right;
-            b{
+            @include respond-to('large') 
+            {
+                grid-column-start: 3;
+                grid-row-start: 1;
+                text-align: left;
+            }
+            b
+            {
                 position: relative;
                 display: block;
+                color: c.$black;
+                @include respond-to('large') 
+                {
+                   width: fit-content;
+                   margin-left: 0.5rem;
+                }
                &::after{
                 content: "$";
                 position: absolute;
-                right: 1.2rem;
-                top: 0rem;
+                right: 1.3rem;
+                top: 0.1rem;
                 font-weight: normal;
-                font-size: .9rem;
+                font-size: 0.9rem;
                } 
             }
         }
-        &__cta{
+        &__cta
+        {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: flex-end;
         }
     }
 }
+.filter{
+    &__dropdown__container
+    {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        background-color: c.$white;
+        border-radius: $border-radius-base;
+        position: absolute;
+        right: 0;
+        z-index: 3;
+        margin-top: 1rem;
+        padding: 1rem;
+        box-shadow: $box-shadow-strong;
+        @include respond-to('large') 
+        {
+            padding: 2rem;
+        }
+    }
+    &__sorting__wrapper
+    {
+        width: 100%;
+        border-bottom: thin solid c.$light-gray;
+        padding-bottom: .5rem;
+        margin-bottom: 1.3rem;
+    }
+    &__type__wrapper
+    {
+        div
+        {
+            margin: 0.6rem 0;
+            display: grid;
+            grid-template-columns: 1.875rem 9fr;
+            input[type="checkbox"]
+            {
+                margin-right: 1rem;
+                margin-top: 0.4rem;
+            }
+            span{
+                p{
+                    @include responsive-font(14px, 18px);
+                }
+            }
+        }
+       
+    }
+    &__cta__wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
 
 @keyframes spin {
     0% {

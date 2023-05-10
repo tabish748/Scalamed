@@ -26,8 +26,8 @@ export async function identityVerificationView()
                 Send: function ()
                 {
                   return {
-                    'otp': false,
-                    'dob': false
+                    'otp': true,
+                    'dob': true
                   };
                 }
               };

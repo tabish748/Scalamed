@@ -79,6 +79,23 @@ class ButtonAction extends HTMLElement
     {
       this.submit_btn.classList.add('theme__btn--small')
     }
+    if(this.hasAttribute('medium'))
+    {
+      this.submit_btn.classList.add('theme__btn--medium')
+    }
+    if(this.hasAttribute('icon'))
+    {
+      this._addIconInButton();
+    }
+  }
+  _addIconInButton()
+  {
+    const icon = Utils.createElement(
+      "i",
+      { class: `icon-${this.getAttribute('icon')}` },
+      []
+    );
+    this.submit_btn.insertBefore(icon, this.submit_btn.firstChild)
   }
 
   Render()
@@ -86,6 +103,7 @@ class ButtonAction extends HTMLElement
     const html = `
     <button class="theme__btn" id="submit_btn" >
     <img id="spinner" class="loading" src="../../assets/images/icons/spinner.svg" hidden>
+
       <span id="text">
       </span>
     </button>

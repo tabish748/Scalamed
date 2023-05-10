@@ -21,13 +21,34 @@ button-action
     }
     &--primary {
       background-color: c.$primary;
-      color: c.$white;
+      span{
+        color: c.$white!important;
+      }
+      i{
+        color: c.$white!important;
+      }
+    }
+    &--secondary {
+      border:thin solid c.$primary;
+      background-color: c.$white;
+      span{
+        color: c.$primary!important;
+      }
+      i{
+        color: c.$primary!important;
+      }
     }
     &--small {
       padding: 0.5rem!important;
       border-radius: v.$border-radius-small;
-      font-size: 1.4rem;
+      font-size: 1.1rem;
     }
+    &--medium {
+      padding: 0.5rem 2rem!important;
+      border-radius: v.$border-radius-small;
+      font-size: 1.2rem;
+    }
+  
   
     &.secondaryBtn {
       background-color: c.$black;

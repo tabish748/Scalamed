@@ -68,7 +68,6 @@ class Utils {
     const baseUrl = window.location.origin;
 
     const response = await fetch(`${baseUrl}/views/${templatePath}`);
-    console.log('response', response)
     if (!response.ok) {
       throw new Error(`Error fetching template ${templatePath}`);
     }
@@ -171,5 +170,27 @@ class Utils {
       }
     });
   }
+  static updateUrlWithQueryParams(queryParams) {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.search = queryParams;
+    history.pushState(null, '', currentUrl.toString());
+  }
+
+  static clickOutside(target, callback) {
+    function handleClick(event) {
+      if (!target.contains(event.target)) {
+        callback(event);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('touchstart', handleClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('touchstart', handleClick);
+    };
+  }
+ 
 }
 export default Utils;

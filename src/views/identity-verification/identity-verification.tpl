@@ -1,13 +1,15 @@
 <rx-layout>
     <div class="rx__section">
-        <span class="icon__bg">
-            <i class="icon-lock-1"></i>
-        </span>
-        <h1 class="mt-1" id="verifyYourIdentity"></h1>
-    <p id="toDownloadPrescription"></p>
+        
+            <span class="icon__bg">
+                <i class="icon-lock-1"></i>
+            </span>
+            <h1 class="mt-1" id="verifyYourIdentity"></h1>
+            <p id="toDownloadPrescription"></p>
+
     <form method="post" id="dob_form" data-validate>
         <div class="pos__relative">
-            <input type="text" name="" placeholder="Enter otp"  data-error="required" id="otp_input">
+            <input type="text" name="" placeholder="Enter otp" maxlength="6"  data-error="required" id="otp_input">
             <div class="rx__section__time__container mt-2">
                 <i class="icon-timer"></i><p class="text__center rx__section__left__seconds " id="remaining_seconds">  </p>
             </div>
