@@ -16,25 +16,25 @@
         <div class="pharmacy__prescription__detail" id="prescription_detail">
           <div class="prescription__detail__wrapper">
             <div>
-              <b>How to use</b>
+              <b id="howToUse"></b>
               <p>Take one teaspoonful by mouth three times daily until gone.</p>
             </div>
             <div>
               <div class="prescription__date__wrapper">12/02/20222</div>
             </div>
             <div>
-              <b>Label information</b>
+              <b id="labelInformation"></b>
               <table cellpadding="5">
                 <tr>
-                  <td>Quality</td>
+                  <td id="quality"></td>
                   <td>1</td>
                 </tr>
                 <tr>
-                  <td>Route</td>
+                  <td id="route"></td>
                   <td>Nasaf</td>
                 </tr>
                 <tr>
-                  <td>Dispose after</td>
+                  <td id="disposeAfter"></td>
                   <td>Sep 30, 2020</td>
                 </tr>
               </table>
@@ -45,20 +45,20 @@
 
       <div class="pharmacy__find__section">
         <div class="heading__and__icons__wrapper">
-          <h2>Find Pharmacy</h2>
+          <h2 id="findPharmacy"></h2>
           <div class="icons__list__wrapper">
             <ul>
               <li alt-txt="Map view">
                 <i class="icon-mapview"></i>
-                <p class="hide__mob">Map view</p>
+                <p class="hide__mob" id="MapView"></p>
               </li>
               <li id="nearby_pharmacies" class="active">
                 <i class="icon-mappointer"></i>
-                <p class="hide__mob">Current location</p>
+                <p class="hide__mob" id="currentLocation"></p>
               </li>
               <li id="filter_btn" class="active">
                 <i class="icon-filter"></i>
-                <p class="hide__mob">Sort & filters</p>
+                <p class="hide__mob" id="SortFilters"></p>
               </li>
               
             </ul>
@@ -74,21 +74,21 @@
                 <label class="custom__radio">
                   <input type="radio" id="low_to_high" name="sorting" />
                   <span class="radio__mark"></span>
-                  Price (low - high)
+                 <p id="priceLowHigh"></p>
                 </label>
                 <label class="custom__radio">
                   <input type="radio" id="high_to_low" name="sorting" />
                   <span class="radio__mark"></span>
-                  Price (high - low)
+                  <p id="priceHighLow"></p>
                 </label>
                 <label class="custom__radio">
-                  <input type="radio" id="distance" name="sorting" />
+                  <input type="radio" id="distance_input" name="sorting" />
                   <span class="radio__mark"></span>
-                  Distance
+                  <p id="distance"></p>
                 </label>
               </div>
 
-              <h2>Pharmacy type</h2>
+              <h2 id="pharmacyType"></h2>
               <div class="filter__type__wrapper">
                 <div>
                   <input
@@ -96,9 +96,10 @@
                     name="retail"
                     id="retail_type"
                     value="retailType"
+                    class="pharmacy__types"
                   />
                   <span>
-                    <label for="retail_type">Retail</label>
+                    <label for="retail_type" id="retail"></label>
                     <p>Primarily Pickup. CVS, walgreens etc</p>
                   </span>
                 </div>
@@ -108,9 +109,10 @@
                     name="mailOrder"
                     id="mail_order"
                     value="mailOrder"
+                    class="pharmacy__types"
                   />
                   <span>
-                    <label for="mail_order">Mail Order</label>
+                    <label for="mail_order" id="mailOrder"></label>
                     <p>Delivery only pharmacy - Pillpack, Caremark</p>
                   </span>
                 </div>

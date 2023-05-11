@@ -36,7 +36,7 @@ export async function findPharmacyView() {
   const init = () => {
     low_to_high.value = pharmacySortOption.PriceLowHigh;
     high_to_low.value = pharmacySortOption.PriceHighLow;
-    distance.value = pharmacySortOption.Distance;
+    distance_input.value = pharmacySortOption.Distance;
     retail_type.value = pharmacyType.Retail;
     mail_order.value = pharmacyType.MailOrder;
   };
@@ -53,39 +53,67 @@ export async function findPharmacyView() {
         filter_container.hidden = true;
       }
     });
+   handleSortFilters();
+   handlePharmacyTypeFilters();
+   filter_apply_btn.addEventListener('click', applyFilter)
+
+  };
+
+  const applyFilter = () => {
+    filter_container.hidden = true;
+    
+  }
+
+  const handlePharmacyTypeFilters = () => {
+    filters.types =[];
+      const inputs = document.querySelectorAll('.pharmacy__types');
+      inputs.forEach(( input, index) => {
+        if (input.checked) 
+        {
+          filters.types.push(input.value);
+          return;
+        }
+        input.addEventListener("click", (event) => {
+          let value = event.target.value
+          let index = filters.types.indexOf(value);
+          if(event.target.checked && index === -1)
+            filters.types.push(value);
+          else if(index !== -1)
+            filters.types.splice(index, 1);
+          Utils.buildQueryParams(filters);
+        });
+      })
+  }
+
+  const handleSortFilters = () => 
+  {
     const radioButtons = document.getElementsByName("sorting");
     for (let i = 0; i < radioButtons.length; i++) {
       if (radioButtons[i].checked) {
-        filters.sorting = radioButtons[i].value;
+        filters.sortBy = radioButtons[i].value;
         break;
       }
       radioButtons[i].addEventListener("click", (event) => {
-        filters.sorting = event.target.value;
-        // buildQueryParams(filters);
+        filters.sortBy = event.target.value;
+        Utils.buildQueryParams(filters);
       });
     }
-  };
+  }
 
-  const buildQueryParams = (filters) => {
-    const queryParams = new URLSearchParams();
-    for (const filterKey in filters) {
-      if (filters.hasOwnProperty(filterKey)) {
-        const filterValue = filters[filterKey];
-        queryParams.set(filterKey, filterValue);
-      }
-    }
-    Utils.updateUrlWithQueryParams(queryParams.toString());
-  };
   const searchAPI = async (query) => {
-    if (!query) {
+    if (!query) 
+    {
       suggestions.innerHTML = "";
       return;
     }
-    try {
+    try 
+    {
       const response = await findSearchTermSuggestions(query);
       const data = await response.result.locations;
       displaySuggestions(data);
-    } catch (error) {
+    } 
+    catch (error) 
+    {
       console.log("Error fetching search results:", error);
     }
   };
@@ -94,7 +122,6 @@ export async function findPharmacyView() {
     suggestions_container.hidden = false;
     data?.map((item) => {
       const zipCode = Utils.extractNumericWord(item);
-
       const li = Utils.createElement("li", {}, [item]);
       suggestions.append(li);
       li.zipCode = zipCode;

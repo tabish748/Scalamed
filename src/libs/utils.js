@@ -170,6 +170,19 @@ class Utils {
       }
     });
   }
+
+  static buildQueryParams(filters) {
+    const queryParams = new URLSearchParams();
+    for (const filterKey in filters) {
+      if (filters.hasOwnProperty(filterKey)) {
+        const filterValue = filters[filterKey];
+        queryParams.set(filterKey, filterValue);
+      }
+    }
+    this.updateUrlWithQueryParams(queryParams.toString());
+  };
+
+
   static updateUrlWithQueryParams(queryParams) {
     const currentUrl = new URL(window.location.href);
     currentUrl.search = queryParams;
