@@ -7,7 +7,11 @@ import {
   findDrugPricesByZip,
   findDrugPricesByGeo,
 } from "../../services/pharmacy/pharmacy-service.js";
-export async function findPharmacyView() {
+import ListingBuddy from "../../components/listing-buddy/listing-buddy.js";
+import {findDrugPricesByZipPayload} from "../../services/payloads.js";
+
+export async function findPharmacyView() 
+{
   //Here you can import files
   const template = await Utils.fetchTemplate("find-pharmacy/find-pharmacy.tpl");
   const css = await Utils.loadCSS("../../compiled-css/pages/find-pharmacy.css");
@@ -16,21 +20,18 @@ export async function findPharmacyView() {
   Utils.setPageTitle("Find Pharmacy - Scalamed");
 
   // After Render will automatically call when HTML will insert into DOM
-  // Write all the logics in afterRender
   const filters = {};
 
   const afterRender = () => {
-    main();
-    function main() {
       Utils.setIdShortcuts(document, window);
       init();
       prescription_tab.addEventListener("click", () => {
         prescription_detail.parentElement.classList.toggle("open");
       });
       handleSearch();
-      nearby_pharmacies.addEventListener("click", handleUserLocationPharmacy);
+      nearby_pharmacies_btn.addEventListener("click", handleUserLocationPharmacy);
       filter_btn.addEventListener("click", handleFilter);
-    }
+      handleFilterOnLoad();
   };
 
   const init = () => {
@@ -40,6 +41,28 @@ export async function findPharmacyView() {
     retail_type.value = pharmacyType.Retail;
     mail_order.value = pharmacyType.MailOrder;
   };
+
+  const handleFilterOnLoad = async  () => 
+  {
+    let payload = await findDrugPricesByZipPayload();
+    const params =  Utils.getQueryParam('*');
+    const hasAtLeastOnePropertyFilled = Object.values(params).some(value => Boolean(value));
+
+    if(hasAtLeastOnePropertyFilled)
+    {
+      if(params.type) {
+        payload.type = params.type;
+      }
+      if(params.sortBy) {
+        payload.sortBy = params.sortBy;
+      } 
+      if(params.zipCode){
+         payload.zipCode = params.zipCode;
+         search_input.value = params.zipCode;
+      }
+      callSearchAPI(payload); 
+    }
+  }
 
   const handleFilter = () => {
     filter_container.hidden
@@ -59,27 +82,44 @@ export async function findPharmacyView() {
 
   };
 
-  const applyFilter = () => {
+   const applyFilter = async () => {
     filter_container.hidden = true;
-    
+    let payload = await findDrugPricesByZipPayload();
+    let params = Utils.getQueryParam('*')
+    payload.type = params.type;
+    payload.sortBy = params.sortBy;
+    callSearchAPI(payload)
+  }
+
+  const callSearchAPI = async (payload) => 
+  {
+    try
+    {
+      const response = await findDrugPricesByZip(payload);
+      pharmacies_listing.value = await response.result;
+    }
+     catch (error) 
+     {
+      console.log("Error fetching search results:", error);
+    }
   }
 
   const handlePharmacyTypeFilters = () => {
-    filters.types =[];
+    filters.type = [];
       const inputs = document.querySelectorAll('.pharmacy__types');
       inputs.forEach(( input, index) => {
         if (input.checked) 
         {
-          filters.types.push(input.value);
+          filters.type.push(input.value);
           return;
         }
         input.addEventListener("click", (event) => {
           let value = event.target.value
-          let index = filters.types.indexOf(value);
+          let index = filters.type.indexOf(value);
           if(event.target.checked && index === -1)
-            filters.types.push(value);
+            filters.type.push(value);
           else if(index !== -1)
-            filters.types.splice(index, 1);
+            filters.type.splice(index, 1);
           Utils.buildQueryParams(filters);
         });
       })
@@ -118,60 +158,47 @@ export async function findPharmacyView() {
     }
   };
 
-  const displaySuggestions = (data) => {
+  const displaySuggestions = (data) => 
+  {
     suggestions_container.hidden = false;
-    data?.map((item) => {
+    data?.map((item) => 
+    {
       const zipCode = Utils.extractNumericWord(item);
       const li = Utils.createElement("li", {}, [item]);
       suggestions.append(li);
-      li.zipCode = zipCode;
+     
       li.addEventListener("click", async (event) => {
         suggestions_container.hidden = true;
         try {
           const response = await findDrugPricesByZip(event.target.zipCode);
-          const pharmacies = await response.result;
-          displayPharmacies(pharmacies);
+          pharmacies_listing.value =  await response.result;
+          filters.zipCode = zipCode;
+          search_input.value = zipCode;
+          Utils.buildQueryParams(filters);
         } catch (error) {
           console.log("Error fetching search results:", error);
         }
       });
     });
   };
-
-  const displayPharmacies = (data) => {
-    list_wrapper.innerHTML = "";
-    data?.map((item) => {
-      const listCard = createCard(item);
-      list_wrapper.append(listCard);
-    });
-  };
-
-  const showSpinner = () => {
-    search_spinner.style.display = "inline-block";
-  };
-
-  const debounce = (func, wait, onStart) => {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      if (onStart) onStart();
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-  };
-
+ 
   const handleSearch = () => {
     search_input.addEventListener(
       "input",
-      debounce(
-        (e) => {
-          searchAPI(e.target.value);
-          search_spinner.style.display = "none";
+      Utils.debounce(
+        async (e) => {
+          try {
+            await searchAPI(e.target.value);
+            search_spinner.style.display = "none";
+          }
+          catch (error) {
+            console.log("Error fetching search results:", error);
+          }
         },
         500,
-        showSpinner
+        () => { search_spinner.style.display = "inline-block"; }
       )
-    ); // Debounce time set to 2 seconds
+    );
     document.addEventListener("click", (e) => {
       if (!search_input.contains(e.target) && !suggestions.contains(e.target)) {
         suggestions_container.hidden = true;
@@ -179,64 +206,19 @@ export async function findPharmacyView() {
     });
   };
 
-  const createCard = (data) => {
-    const open = data?.isOpenNow ? "open" : "closed";
-    const listCard = Utils.createElement("div", { class: "list__card" }, [
-      Utils.createElement("div", { class: "list__card__name" }, [
-        Utils.createElement("h3", {}, [data?.name]),
-        Utils.createElement("p", { class: "pharmacy__address" }, [
-          data.addressLine1,
-        ]),
-      ]),
-      Utils.createElement("div", { class: "list__card__price" }, [
-        Utils.createElement("p", {}, [
-          Utils.createElement("b", {}, ["34"]),
-          "Coupon",
-        ]),
-      ]),
-      Utils.createElement("div", { class: "list__card__schedule" }, [
-        Utils.createElement(
-          "span",
-          { class: open == "open" ? "open" : "closed" },
-          [open]
-        ),
-        Utils.createElement("p", {}, ["opens 9:00am"]),
-        Utils.createElement("p", {}, [data.distanceDisplayValue]),
-      ]),
-      Utils.createElement("div", { class: "list__card__cta" }, [
-        Utils.createElement("button-action", {
-          "label-txt": "Select",
-          primary: "",
-          "w-100": "",
-          small: "",
-        }),
-      ]),
-    ]);
-
-    return listCard;
+  const handleUserLocationPharmacy = async () => {
+    try {
+      let {latitude, longitude} = await Utils.getCurrentLocation();
+      let coordinates = `${latitude.toFixed(4)}°, ${longitude.toFixed(4)}°`;
+      search_input.value = coordinates;
+      const response = await findDrugPricesByGeo();
+      pharmacies_listing.value = await response.result;
+    }
+    catch (error) {
+      console.log("error", error);
+      alert(error.message);
+    }
   };
-
-  const handleUserLocationPharmacy = () => {
-    let coordinates;
-    Utils.getCurrentLocation()
-      .then((coords) => {
-        coordinates =
-          coords.latitude.toFixed(4) +
-          "°, " +
-          coords.longitude.toFixed(4) +
-          "°";
-      })
-      .then(async () => {
-        search_input.value = coordinates;
-        try {
-          const response = await findDrugPricesByGeo();
-          displayPharmacies(response.result);
-        } catch (error) {
-          console.log("error", error);
-        }
-      });
-  };
-
   // teardown will exectue when view will leave the DOM
   const teardown = () => {};
 

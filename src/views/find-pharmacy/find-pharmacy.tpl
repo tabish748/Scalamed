@@ -48,11 +48,11 @@
           <h2 id="findPharmacy"></h2>
           <div class="icons__list__wrapper">
             <ul>
-              <li alt-txt="Map view">
+              <li  id="map_view_btn">
                 <i class="icon-mapview"></i>
                 <p class="hide__mob" id="MapView"></p>
               </li>
-              <li id="nearby_pharmacies" class="active">
+              <li id="nearby_pharmacies_btn" class="active">
                 <i class="icon-mappointer"></i>
                 <p class="hide__mob" id="currentLocation"></p>
               </li>
@@ -147,8 +147,8 @@
           </div>
         </div>
       </div>
-
-      <div class="list__wrapper" id="list_wrapper"></div>
+      <listing-buddy id="pharmacies_listing"></listing-buddy>
+      <!-- <div class="list__wrapper" id="list_wrapper"></div> -->
     </div>
   </div>
 </rx-layout>

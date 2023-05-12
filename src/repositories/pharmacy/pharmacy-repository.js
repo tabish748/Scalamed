@@ -28,14 +28,21 @@ class PharmacyRepository {
     }
   }
 
-  async findDrugPricesByZip(data) {
+  async findDrugPricesByZip(data) 
+  {
     // return pharmacyApi.findSearchTermSuggestions(data);
+    if(data)
+      return findDrugPricesByZipResponse;
+    else
     return findDrugPricesByZipResponse;
-    }
-    async findDrugPricesByGeo(data) {
+  }
+
+
+    async findDrugPricesByGeo(data) 
+    {
       // return pharmacyApi.findSearchTermSuggestions(data);
       return findDrugPricesByGeo;
-      }
+    }
   }
 
 

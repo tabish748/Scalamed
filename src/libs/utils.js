@@ -157,11 +157,24 @@ class Utils {
             resolve({ latitude, longitude });
           },
           (error) => {
-            reject(error);
+            switch(error.code) {
+              case error.PERMISSION_DENIED:
+                reject(new Error("User denied the request for Geolocation."));
+                break;
+              case error.POSITION_UNAVAILABLE:
+                reject(new Error("Location information is unavailable."));
+                break;
+              case error.TIMEOUT:
+                reject(new Error("The request to get user location timed out."));
+                break;
+              case error.UNKNOWN_ERROR:
+                reject(new Error("An unknown error occurred."));
+                break;
+            }
           },
           {
-            enableHighAccuracy: true,
-            timeout: 5000,
+            enableHighAccuracy: false,
+            timeout: 8000,
             maximumAge: 0,
           }
         );
@@ -205,5 +218,50 @@ class Utils {
     };
   }
  
+  static getQueryParam(keys) 
+  {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    if (typeof keys === 'string') 
+    {
+      if (keys === '*') 
+      {
+        let paramsObj = {};
+        for (let param of params.entries()) 
+        {
+          paramsObj[param[0]] = param[1];
+        }
+        return paramsObj;
+      }
+      return params.get(keys);
+    }
+    let result = {};
+    for (let key of keys) 
+    {
+      result[key] = params.get(key);
+    }
+    return result;
+    }
+
+    static debounce(func, wait, onStart)
+    {
+      let timeout;
+      return function (...args) {
+        const context = this;
+        if (onStart) onStart();
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+      };
+    };
+
+    static emptyObj() 
+    {
+      return {
+        prop1: '',
+        prop2: null,
+        prop3: 'value',
+        prop4: undefined  
+      }
+    };
 }
 export default Utils;
