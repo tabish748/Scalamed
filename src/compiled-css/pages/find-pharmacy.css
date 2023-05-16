@@ -423,3 +423,47 @@
     transform: rotate(360deg);
   }
 }
+.map__view {
+  width: 100%;
+  background-color: lightblue;
+  position: relative;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+@media (min-width: 992px) {
+  .map__view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.map__view .list__wrapper {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  position: absolute;
+  z-index: 1;
+  bottom: 8px;
+  left: 8px;
+}
+@media (min-width: 992px) {
+  .map__view .list__wrapper {
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+.map__view .list__wrapper .list__card {
+  min-width: 90%;
+  margin-right: 3%;
+  border-radius: 8px;
+}
+.map__view .map__wrapper {
+  width: 100%;
+  height: 500px;
+}
+@media (min-width: 992px) {
+  .map__view .map__wrapper {
+    background-color: lightblue;
+  }
+}

@@ -31,6 +31,7 @@ export async function findPharmacyView() {
     handleSearch();
     nearby_pharmacies_btn.addEventListener("click", handleUserLocationPharmacy);
     filter_btn.addEventListener("click", handleFilter);
+    map_view_btn.addEventListener("click", handleMapView);
     handleFilterOnLoad();
   };
 
@@ -44,6 +45,14 @@ export async function findPharmacyView() {
     ];
   };
 
+  const handleMapView = () => 
+  {
+      pharmacies_listing._handleMapView();
+      map_view_btn.querySelector('i').classList.add('icon-listview');
+      map_view_btn.querySelector('p').innerText = 'List view';
+  }
+
+  
   const handleFilterOnLoad = async () => {
     let payload = await findDrugPricesByZipPayload();
     const params = Utils.getQueryParam("*");

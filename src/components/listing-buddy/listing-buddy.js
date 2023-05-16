@@ -1,41 +1,62 @@
 import Utils from "../../libs/utils.js";
 
-class ListingBuddy extends HTMLElement
-{
+class ListingBuddy extends HTMLElement {
   static tname = "listing-buddy";
-  
-  constructor()
-  {
+
+  constructor() {
     super();
 
     this.action = null;
     Utils.Bind(this, "On_");
   }
 
-  connectedCallback()
-  {
+  connectedCallback() {
     this.Render();
   }
-  
 
-  set value(data)
-  {
+  set value(data) {
     this._displayPharmacies(data);
   }
 
-   _displayPharmacies(data)
-   {
-    map_view_btn.classList.add('active');
+  set view(mode) {
+    if (mode == "map") {
+      this._handleMapView();
+    }
+  }
+
+  _handleMapView() {
+    this.list__view__mode.classList.add("map__view");
+    const mapWrapper = Utils.createElement(
+      "div",
+      { class: "map__wrapper", id: "map_wrapper" },
+      []
+    );
+    this.list__view__mode.appendChild(mapWrapper);
+    Utils.loadScript(
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyAooY8V107rnpI6sj_bVr9jPoPW09x5Ncg",
+      () => {
+        this.initMap();
+      }
+    );
+  }
+
+  initMap() {
+    const map = new google.maps.Map(document.getElementById("map_wrapper"), {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8,
+    });
+  }
+
+  _displayPharmacies(data) {
+    map_view_btn.classList.add("active");
     this.list_wrapper.innerHTML = "";
     data?.map((item) => {
       const listCard = this._createCard(item);
       this.list_wrapper.append(listCard);
     });
-  };
-  
+  }
 
-  _createCard(data)
-  {
+  _createCard(data) {
     const open = data?.isOpenNow ? "open" : "closed";
     const listCard = Utils.createElement("div", { class: "list__card" }, [
       Utils.createElement("div", { class: "list__card__name" }, [
@@ -69,20 +90,18 @@ class ListingBuddy extends HTMLElement
       ]),
     ]);
     return listCard;
-  };
+  }
 
-
-
-  Render()
-  {
+  Render() {
     const html = `
+    <div id="list__view__mode">
     <div class="list__wrapper" id="list_wrapper"></div>
+    </div>
     `;
 
     const doc = Utils.toDocument(html);
     this.replaceChildren(doc);
     Utils.setIdShortcuts(this, this);
-
   }
 }
 
