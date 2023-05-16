@@ -71,21 +71,8 @@
               <h2>Sort by</h2>
 
               <div class="filter__sorting__wrapper">
-                <label class="custom__radio">
-                  <input type="radio" id="low_to_high" name="sorting" />
-                  <span class="radio__mark"></span>
-                 <p id="priceLowHigh"></p>
-                </label>
-                <label class="custom__radio">
-                  <input type="radio" id="high_to_low" name="sorting" />
-                  <span class="radio__mark"></span>
-                  <p id="priceHighLow"></p>
-                </label>
-                <label class="custom__radio">
-                  <input type="radio" id="distance_input" name="sorting" />
-                  <span class="radio__mark"></span>
-                  <p id="distance"></p>
-                </label>
+        
+                <radio-button id="radio_comp"></radio-button>
               </div>
 
               <h2 id="pharmacyType"></h2>

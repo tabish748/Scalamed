@@ -1,74 +1,65 @@
-
 import Utils from "../../libs/utils.js";
 
-class RadioButton extends HTMLElement
-{
+class RadioButton extends HTMLElement {
   static tname = "radio-button";
-  
+
   constructor() {
     super();
-    this._label = document.createElement('label');
-    this._label.className = 'custom__radio';
-
-    this._input = document.createElement('input');
-    this._input.type = 'radio';
-    this._input.addEventListener('change', this._onChange.bind(this));
-
-    this._radioMark = document.createElement('span');
-    this._radioMark.className = 'radio__mark';
-
-    this._label.appendChild(this._input);
-    this._label.appendChild(this._radioMark);
-    this.appendChild(this._label);
-  }
-
-  static get observedAttributes() {
-    return ['name', 'value', 'id', 'text'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue === newValue) {
-      return;
-    }
-
-    switch (name) {
-      case 'name':
-        this._input.name = newValue;
-        break;
-      case 'value':
-        this._input.value = newValue;
-        break;
-      case 'id':
-        this._input.id = newValue;
-        break;
-      case 'text':
-        this._label.textContent = newValue;
-        this._label.appendChild(this._input);
-        break;
-    }
+    this._value = null; // private variable to hold the value
   }
 
   connectedCallback() {
-    this.dispatchEvent(new CustomEvent('ready'));
+    this.addEventListener("change", this.onChange.bind(this));
   }
 
-  setValue(value) {
-    this._input.value = value;
+  disconnectedCallback() {
+    this.removeEventListener("change", this.onChange.bind(this));
   }
 
-  getValue() {
-    return this._input.value;
+  onChange(e) {
+    if(e.target.name === 'radiogroup') {
+        this._value = e.target.value;
+        // dispatch a custom event whenever the value changes
+        this.dispatchEvent(new CustomEvent('valueChange', { detail: this._value }));
+    }
+}
+
+  // getter for value
+  get value() {
+    return this._value;
   }
 
-  _onChange() {
-    this.dispatchEvent(new CustomEvent('change', { detail: { value: this._input.value } }));
+  // setter for value
+  set items(options) 
+  {
+    this.innerHTML = "";
+    options?.forEach((option) => 
+    {
+      const div = document.createElement("div");
+      const radioInput = document.createElement("input");
+      const label = document.createElement("p");
+      radioInput.setAttribute("type", "radio");
+      radioInput.setAttribute("name", "radiogroup");
+      radioInput.value = option.value;
+      label.textContent = option.label;
+      div.appendChild(radioInput)
+      div.appendChild(label)
+      this.appendChild(div);
+    });
   }
-
-
+  set value(newValue) {
+    const radioInputs = this.querySelectorAll('input[name="radiogroup"]');
+    radioInputs.forEach(input => {
+      if (input.value === newValue) {
+        input.checked = true;
+        this._value = newValue;
+      } else {
+        input.checked = false;
+      }
+    });
+  }
 }
 
 Utils.Register_Element(RadioButton);
 
 export default RadioButton;
-
-  

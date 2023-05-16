@@ -1,6 +1,7 @@
 import Utils from "../../libs/utils.js";
 import RxLayout from "../../components/rx-layout/rx-layout.js";
 import ButtonAction from "../../components/button/button.js";
+import RadioButton from "../../components/radio-button/radio-button.js";
 import { pharmacySortOption, pharmacyType } from "../../libs/enums.js";
 import {
   findSearchTermSuggestions,
@@ -8,10 +9,9 @@ import {
   findDrugPricesByGeo,
 } from "../../services/pharmacy/pharmacy-service.js";
 import ListingBuddy from "../../components/listing-buddy/listing-buddy.js";
-import {findDrugPricesByZipPayload} from "../../services/payloads.js";
+import { findDrugPricesByZipPayload } from "../../services/payloads.js";
 
-export async function findPharmacyView() 
-{
+export async function findPharmacyView() {
   //Here you can import files
   const template = await Utils.fetchTemplate("find-pharmacy/find-pharmacy.tpl");
   const css = await Utils.loadCSS("../../compiled-css/pages/find-pharmacy.css");
@@ -23,46 +23,55 @@ export async function findPharmacyView()
   const filters = {};
 
   const afterRender = () => {
-      Utils.setIdShortcuts(document, window);
-      init();
-      prescription_tab.addEventListener("click", () => {
-        prescription_detail.parentElement.classList.toggle("open");
-      });
-      handleSearch();
-      nearby_pharmacies_btn.addEventListener("click", handleUserLocationPharmacy);
-      filter_btn.addEventListener("click", handleFilter);
-      handleFilterOnLoad();
+    Utils.setIdShortcuts(document, window);
+    init();
+    prescription_tab.addEventListener("click", () => {
+      prescription_detail.parentElement.classList.toggle("open");
+    });
+    handleSearch();
+    nearby_pharmacies_btn.addEventListener("click", handleUserLocationPharmacy);
+    filter_btn.addEventListener("click", handleFilter);
+    handleFilterOnLoad();
   };
 
   const init = () => {
-    low_to_high.value = pharmacySortOption.PriceLowHigh;
-    high_to_low.value = pharmacySortOption.PriceHighLow;
-    distance_input.value = pharmacySortOption.Distance;
     retail_type.value = pharmacyType.Retail;
     mail_order.value = pharmacyType.MailOrder;
+    radio_comp.items = [
+      { label: "Price (low - high)", value: pharmacySortOption.PriceLowHigh },
+      { label: "Price (high - low)", value: pharmacySortOption.PriceHighLow },
+      { label: "Distance", value: pharmacySortOption.Distance },
+    ];
   };
 
-  const handleFilterOnLoad = async  () => 
-  {
+  const handleFilterOnLoad = async () => {
     let payload = await findDrugPricesByZipPayload();
-    const params =  Utils.getQueryParam('*');
-    const hasAtLeastOnePropertyFilled = Object.values(params).some(value => Boolean(value));
-
-    if(hasAtLeastOnePropertyFilled)
-    {
-      if(params.type) {
-        payload.type = params.type;
+    const params = Utils.getQueryParam("*");
+    const hasAtLeastOnePropertyFilled = Object.values(params).some((value) =>
+      Boolean(value)
+    );
+    if (hasAtLeastOnePropertyFilled) {
+      if (params.type) {
+        payload.type = filters.type = params.type;
+        let types = params.type.split(",");
+        if (types.includes(pharmacyType.Retail)) {
+          retail_type.checked = true;
+        }
+        if (types.includes(pharmacyType.MailOrder)) {
+          mail_order.checked = true;
+        }
       }
-      if(params.sortBy) {
-        payload.sortBy = params.sortBy;
-      } 
-      if(params.zipCode){
-         payload.zipCode = params.zipCode;
-         search_input.value = params.zipCode;
+      if (params.sortBy) {
+        payload.sortBy = filters.sortBy = params.sortBy;
+        radio_comp.value = params.sortBy;
       }
-      callSearchAPI(payload); 
+      if (params.zipCode) {
+        payload.zipCode = filters.zipCode = params.zipCode;
+        search_input.value = params.zipCode;
+      }
+      callSearchAPI(payload);
     }
-  }
+  };
 
   const handleFilter = () => {
     filter_container.hidden
@@ -76,102 +85,80 @@ export async function findPharmacyView()
         filter_container.hidden = true;
       }
     });
-   handleSortFilters();
-   handlePharmacyTypeFilters();
-   filter_apply_btn.addEventListener('click', applyFilter)
-
+    handleSortFilters();
+    handlePharmacyTypeFilters();
+    filter_apply_btn.addEventListener("click", applyFilter);
   };
 
-   const applyFilter = async () => {
+  const applyFilter = async () => {
     filter_container.hidden = true;
     let payload = await findDrugPricesByZipPayload();
-    let params = Utils.getQueryParam('*')
+    let params = Utils.getQueryParam("*");
     payload.type = params.type;
     payload.sortBy = params.sortBy;
-    callSearchAPI(payload)
-  }
+    callSearchAPI(payload);
+  };
 
-  const callSearchAPI = async (payload) => 
-  {
-    try
-    {
+  const callSearchAPI = async (payload) => {
+    try {
       const response = await findDrugPricesByZip(payload);
       pharmacies_listing.value = await response.result;
-    }
-     catch (error) 
-     {
+    } catch (error) {
       console.log("Error fetching search results:", error);
     }
-  }
+  };
 
   const handlePharmacyTypeFilters = () => {
     filters.type = [];
-      const inputs = document.querySelectorAll('.pharmacy__types');
-      inputs.forEach(( input, index) => {
-        if (input.checked) 
-        {
-          filters.type.push(input.value);
-          return;
-        }
-        input.addEventListener("click", (event) => {
-          let value = event.target.value
-          let index = filters.type.indexOf(value);
-          if(event.target.checked && index === -1)
-            filters.type.push(value);
-          else if(index !== -1)
-            filters.type.splice(index, 1);
-          Utils.buildQueryParams(filters);
-        });
-      })
-  }
-
-  const handleSortFilters = () => 
-  {
-    const radioButtons = document.getElementsByName("sorting");
-    for (let i = 0; i < radioButtons.length; i++) {
-      if (radioButtons[i].checked) {
-        filters.sortBy = radioButtons[i].value;
-        break;
+    const inputs = document.querySelectorAll(".pharmacy__types");
+    inputs.forEach((input, index) => {
+      if (input.checked) {
+        filters.type.push(input.value);
       }
-      radioButtons[i].addEventListener("click", (event) => {
-        filters.sortBy = event.target.value;
+      input.addEventListener("click", (event) => {
+        let value = event.target.value;
+        let index = filters.type.indexOf(value);
+        if (event.target.checked && index === -1) filters.type.push(value);
+        else if (!event.target.checked && index !== -1)
+          filters.type.splice(index, 1);
         Utils.buildQueryParams(filters);
       });
-    }
-  }
+    });
+  };
+
+  const handleSortFilters = () => {
+    radio_comp.addEventListener("valueChange", (e) => {
+      filters.sortBy = e.detail;
+      Utils.buildQueryParams(filters);
+    });
+  };
 
   const searchAPI = async (query) => {
-    if (!query) 
-    {
+    if (!query) {
       suggestions.innerHTML = "";
       return;
     }
-    try 
-    {
+    try {
       const response = await findSearchTermSuggestions(query);
       const data = await response.result.locations;
       displaySuggestions(data);
-    } 
-    catch (error) 
-    {
+    } catch (error) {
       console.log("Error fetching search results:", error);
     }
   };
 
-  const displaySuggestions = (data) => 
-  {
+  const displaySuggestions = (data) => {
     suggestions_container.hidden = false;
-    data?.map((item) => 
-    {
+    data?.map((item) => {
       const zipCode = Utils.extractNumericWord(item);
       const li = Utils.createElement("li", {}, [item]);
       suggestions.append(li);
-     
+
       li.addEventListener("click", async (event) => {
         suggestions_container.hidden = true;
         try {
           const response = await findDrugPricesByZip(event.target.zipCode);
-          pharmacies_listing.value =  await response.result;
+          pharmacies_listing.value = await response.result;
           filters.zipCode = zipCode;
           search_input.value = zipCode;
           Utils.buildQueryParams(filters);
@@ -181,7 +168,7 @@ export async function findPharmacyView()
       });
     });
   };
- 
+
   const handleSearch = () => {
     search_input.addEventListener(
       "input",
@@ -190,13 +177,14 @@ export async function findPharmacyView()
           try {
             await searchAPI(e.target.value);
             search_spinner.style.display = "none";
-          }
-          catch (error) {
+          } catch (error) {
             console.log("Error fetching search results:", error);
           }
         },
         500,
-        () => { search_spinner.style.display = "inline-block"; }
+        () => {
+          search_spinner.style.display = "inline-block";
+        }
       )
     );
     document.addEventListener("click", (e) => {
@@ -208,13 +196,12 @@ export async function findPharmacyView()
 
   const handleUserLocationPharmacy = async () => {
     try {
-      let {latitude, longitude} = await Utils.getCurrentLocation();
+      let { latitude, longitude } = await Utils.getCurrentLocation();
       let coordinates = `${latitude.toFixed(4)}°, ${longitude.toFixed(4)}°`;
       search_input.value = coordinates;
       const response = await findDrugPricesByGeo();
       pharmacies_listing.value = await response.result;
-    }
-    catch (error) {
+    } catch (error) {
       console.log("error", error);
       alert(error.message);
     }
