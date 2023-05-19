@@ -47,9 +47,8 @@ export async function findPharmacyView() {
 
   const handleMapView = () => 
   {
-      pharmacies_listing._handleMapView();
-      map_view_btn.querySelector('i').classList.add('icon-listview');
-      map_view_btn.querySelector('p').innerText = 'List view';
+      pharmacies_listing.view ='map';
+    
   }
 
   

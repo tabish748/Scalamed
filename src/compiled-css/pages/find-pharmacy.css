@@ -280,22 +280,17 @@
     padding: 2rem;
   }
 }
-.list__card__name {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
 .list__card__name h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 @media (min-width: 576px) and (max-width: 992px) {
   .list__card__name h3 {
-    font-size: calc(1.2rem + (22px - 1.2rem) * ((100vw - 576px) / (992px - 576px)));
+    font-size: calc(1.1rem + (1.2rem - 1.1rem) * ((100vw - 576px) / (992px - 576px)));
   }
 }
 @media (min-width: 992px) {
   .list__card__name h3 {
-    font-size: 22px;
+    font-size: 1.2rem;
   }
 }
 .list__card__schedule {
@@ -342,6 +337,17 @@
   position: relative;
   display: block;
   color: #000000;
+  font-size: 1.5rem;
+}
+@media (min-width: 576px) and (max-width: 992px) {
+  .list__card__price b {
+    font-size: calc(1.5rem + (1.6rem - 1.5rem) * ((100vw - 576px) / (992px - 576px)));
+  }
+}
+@media (min-width: 992px) {
+  .list__card__price b {
+    font-size: 1.6rem;
+  }
 }
 @media (min-width: 992px) {
   .list__card__price b {
@@ -352,10 +358,19 @@
 .list__card__price b::after {
   content: "$";
   position: absolute;
-  right: 1.3rem;
-  top: 0.1rem;
+  right: 1.7rem;
+  top: 0.3rem;
   font-weight: normal;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+}
+@media (min-width: 992px) {
+  .list__card__price b::after {
+    right: 1.9rem;
+    top: 0.4rem;
+  }
+}
+.list__card__price p {
+  font-size: 0.7rem;
 }
 .list__card__cta {
   display: flex;
@@ -425,7 +440,7 @@
 }
 .map__view {
   width: 100%;
-  background-color: lightblue;
+  background-color: #ffffff;
   position: relative;
   margin-top: 1rem;
   border-radius: 8px;
@@ -434,7 +449,7 @@
 @media (min-width: 992px) {
   .map__view {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 3fr;
   }
 }
 .map__view .list__wrapper {
@@ -448,9 +463,11 @@
 }
 @media (min-width: 992px) {
   .map__view .list__wrapper {
-    max-height: 400px;
+    max-height: 70vh;
     overflow-x: hidden;
     overflow-y: auto;
+    position: static;
+    display: block;
   }
 }
 .map__view .list__wrapper .list__card {
@@ -458,12 +475,130 @@
   margin-right: 3%;
   border-radius: 8px;
 }
+@media (min-width: 992px) {
+  .map__view .list__wrapper .list__card {
+    margin-bottom: 0.5rem;
+    border-radius: unset;
+  }
+}
 .map__view .map__wrapper {
   width: 100%;
-  height: 500px;
+  height: 70vh;
 }
 @media (min-width: 992px) {
   .map__view .map__wrapper {
-    background-color: lightblue;
+    height: 100%;
   }
+}
+
+@media (min-width: 992px) {
+  .map__view .list__card__schedule {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card__schedule {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card {
+    padding: 1rem;
+    grid-template-columns: 6fr 4fr !important;
+  }
+}
+.map__view .list__card.active {
+  background-color: #E3F3FF;
+}
+@media (min-width: 992px) {
+  .map__view .list__card__schedule {
+    grid-column-start: unset;
+    grid-row-start: unset;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card__price {
+    grid-column-start: unset;
+    grid-row-start: unset;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card__price {
+    grid-column-start: unset;
+    grid-row-start: unset;
+    text-align: right;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card__price p {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+@media (min-width: 992px) {
+  .map__view .list__card__price b {
+    width: fit-content;
+    margin-left: 0rem;
+    position: relative;
+    display: block;
+    color: #000000;
+  }
+}
+.map__view .list__card__price b::after {
+  content: "$";
+  position: absolute;
+  right: 1.7rem;
+  top: 0.3rem;
+  font-weight: normal;
+  font-size: 1.1rem;
+}
+@media (min-width: 992px) {
+  .map__view .list__card__price b::after {
+    right: 1.9rem;
+    top: 0.4rem;
+  }
+}
+
+.map__tooltip {
+  padding: 0.1rem;
+  background-color: #ffffff;
+  text-transform: capitalize;
+}
+.map__tooltip p {
+  font-size: 0.7rem;
+}
+@media (min-width: 576px) and (max-width: 992px) {
+  .map__tooltip p {
+    font-size: calc(0.7rem + (0.8rem - 0.7rem) * ((100vw - 576px) / (992px - 576px)));
+  }
+}
+@media (min-width: 992px) {
+  .map__tooltip p {
+    font-size: 0.8rem;
+  }
+}
+.map__tooltip .tooltip__title__container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: thin solid #EAEAEA;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.map__tooltip .tooltip__title__container b {
+  font-size: 1.2rem;
+}
+.map__tooltip .close__label {
+  color: #F06363;
+}
+.map__tooltip .open__label {
+  color: #28a745;
 }

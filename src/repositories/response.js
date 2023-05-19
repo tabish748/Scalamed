@@ -52,7 +52,6 @@ export const findDrugPricesByZipResponse = {
             "telecom": "+13102050724",
             "zip": "90069"
         },
-      
         {
             "addressLine1": "8547 Santa Monica Blvd",
             "addressLine2": "",
@@ -104,8 +103,6 @@ export const findDrugPricesByZipResponse = {
             "telecom": "+13106572027",
             "zip": "90069"
         },
-    
-       
         {
             "addressLine1": "300 S Beverly DR",
             "addressLine2": "STE 100",
