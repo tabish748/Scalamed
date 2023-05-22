@@ -286,6 +286,15 @@ class Utils {
         }
     }
 }
+
+static clearObject(obj) {
+  for (let prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      delete obj[prop];
+    }
+  }
+  return obj;
+}
     
 }
 export default Utils;

@@ -43,6 +43,7 @@
         </div>
       </div>
 
+     <div class="searching__listing__wrapper" id="searching_listing_wrapper">
       <div class="pharmacy__find__section">
         <div class="heading__and__icons__wrapper">
           <h2 id="findPharmacy"></h2>
@@ -135,7 +136,7 @@
         </div>
       </div>
       <listing-buddy id="pharmacies_listing"></listing-buddy>
-      <!-- <div class="list__wrapper" id="list_wrapper"></div> -->
+     </div>
     </div>
   </div>
 </rx-layout>

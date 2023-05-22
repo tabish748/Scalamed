@@ -976,7 +976,24 @@
     "web":{
         "resendNotification": "Click on resend, if code not received in 2 mins",
         "verifyYourIdentity": "Verify your identity",
-        "toDownloadPrescription": "To download your prescription, confirm your date of birth. You will receive a unique code via text to enter."
+        "toDownloadPrescription": "To download your prescription, confirm your date of birth. You will receive a unique code via text to enter.",
+        "searchforPharmaciesHeading": "Search for pharmacies",
+        "searchforPharmaciesText": "Use current location or enter zip code to search",
+        "howToUse": "How to use",
+        "labelInformation": "Label information",
+        "quality": "Quality",
+        "route": "Route",
+        "disposeAfter": "Dispose after",
+        "findPharmacy": "Find Pharmacy",
+        "MapView": "Map view",
+        "currentLocation": "Current location",
+        "SortFilters": "Sort & filters",
+        "pharmacyType": "Pharmacy type",
+        "retail": "Retail",
+        "priceLowHigh": "Price (low - high)",
+        "priceHighLow": "Price (high - low)",
+        "distance": "Distance",
+        "mailOrder": "Mail Order"
     }
     
 }

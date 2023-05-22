@@ -22,17 +22,41 @@ export async function findPharmacyView() {
   // After Render will automatically call when HTML will insert into DOM
   const filters = {};
 
-  const afterRender = () => {
+  const afterRender = async  () => {
     Utils.setIdShortcuts(document, window);
     init();
-    prescription_tab.addEventListener("click", () => {
-      prescription_detail.parentElement.classList.toggle("open");
-    });
     handleSearch();
+    attachEventListeners();
+    await handleFilterOnLoad();
+  };
+
+  const attachEventListeners = () => {
+    prescription_tab.addEventListener("click", togglePrescriptionDetail);
     nearby_pharmacies_btn.addEventListener("click", handleUserLocationPharmacy);
     filter_btn.addEventListener("click", handleFilter);
-    map_view_btn.addEventListener("click", handleMapView);
-    handleFilterOnLoad();
+    filter_apply_btn.addEventListener("click", applyFilter);
+    window.addEventListener('customFullScreenControlClicked', () => handleCustomFullScreenControlClicked() );
+  };
+
+  const handleCustomFullScreenControlClicked = () => {
+   if(searching_listing_wrapper.requestFullscreen)
+   {
+    searching_listing_wrapper.requestFullscreen();
+   }
+    document.addEventListener('fullscreenchange',() => handleFullscreenChange());
+  }
+
+  const handleFullscreenChange = () => {
+    if (document.fullscreenElement === searching_listing_wrapper) {
+      searching_listing_wrapper.classList.add('fullscreen__active');
+    } else {
+        // The div is not in fullscreen mode, remove the class
+        searching_listing_wrapper.classList.remove('fullscreen__active');
+    }
+  }
+
+  const togglePrescriptionDetail = () => {
+    prescription_detail.parentElement.classList.toggle("open");
   };
 
   const init = () => {
@@ -48,7 +72,6 @@ export async function findPharmacyView() {
   const handleMapView = () => 
   {
       pharmacies_listing.view ='map';
-    
   }
 
   
@@ -95,7 +118,6 @@ export async function findPharmacyView() {
     });
     handleSortFilters();
     handlePharmacyTypeFilters();
-    filter_apply_btn.addEventListener("click", applyFilter);
   };
 
   const applyFilter = async () => {
@@ -107,10 +129,16 @@ export async function findPharmacyView() {
     callSearchAPI(payload);
   };
 
+  const handleMapViewButton = () => {
+    if(map_view_btn.classList.contains("active"))
+      map_view_btn.addEventListener("click", handleMapView);
+  }
+
   const callSearchAPI = async (payload) => {
     try {
       const response = await findDrugPricesByZip(payload);
       pharmacies_listing.value = await response.result;
+      handleMapViewButton();
     } catch (error) {
       console.log("Error fetching search results:", error);
     }
@@ -170,6 +198,7 @@ export async function findPharmacyView() {
           filters.zipCode = zipCode;
           search_input.value = zipCode;
           Utils.buildQueryParams(filters);
+          handleMapViewButton();
         } catch (error) {
           console.log("Error fetching search results:", error);
         }
@@ -208,7 +237,9 @@ export async function findPharmacyView() {
       let coordinates = `${latitude.toFixed(4)}°, ${longitude.toFixed(4)}°`;
       search_input.value = coordinates;
       const response = await findDrugPricesByGeo();
+      Utils.buildQueryParams(Utils.clearObject(filters));
       pharmacies_listing.value = await response.result;
+      handleMapViewButton();
     } catch (error) {
       console.log("error", error);
       alert(error.message);

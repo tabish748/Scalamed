@@ -602,3 +602,34 @@
 .map__tooltip .open__label {
   color: #28a745;
 }
+
+.custom__largescreen__icon {
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  text-align: center;
+  right: 0.5rem !important;
+  top: 0.5rem !important;
+}
+.custom__largescreen__text {
+  color: #000000;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.fullscreen__active {
+  background-color: #f5f7f9;
+}
+@media (min-width: 992px) {
+  .fullscreen__active .map__view {
+    grid-template-columns: 30rem 3fr;
+  }
+}
+@media (min-width: 992px) {
+  .fullscreen__active .map__view .list__wrapper {
+    height: 78vh;
+    max-height: unset;
+  }
+}

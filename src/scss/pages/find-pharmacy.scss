@@ -3,8 +3,7 @@
 @import '../base/variables';
 
 // mixins for this stylesheet
-@mixin dollar-symbol()
-{
+@mixin dollar-symbol() {
     &::after {
         content: "$";
         position: absolute;
@@ -12,6 +11,7 @@
         top: 0.3rem;
         font-weight: normal;
         font-size: 1.1rem;
+
         @include respond-to('large') {
             right: 1.9rem;
             top: 0.4rem;
@@ -283,6 +283,7 @@
         display: grid;
         grid-template-columns: 6fr 4fr;
         gap: 1rem;
+
         @include respond-to('large') {
             grid-template-columns: 2fr 1fr 1fr 1fr;
             padding: 2rem;
@@ -293,7 +294,7 @@
                 @include responsive-font(1.1rem, 1.2rem);
             }
 
-           
+
         }
 
         &__schedule {
@@ -313,6 +314,7 @@
                 display: inline-block;
                 margin-right: 0.4rem;
             }
+
             @include respond-to('large') {
                 grid-column-start: 2;
                 grid-row-start: 1;
@@ -342,6 +344,7 @@
                 display: block;
                 color: c.$black;
                 @include responsive-font(1.5rem, 1.6rem);
+
                 @include respond-to('large') {
                     width: fit-content;
                     margin-left: 0.5rem;
@@ -349,6 +352,7 @@
 
                 @include dollar-symbol();
             }
+
             p {
                 font-size: .7rem;
             }
@@ -435,6 +439,7 @@
     margin-top: 1rem;
     border-radius: $border-radius-base;
     overflow: hidden;
+
     @include respond-to('large') {
         display: grid;
         grid-template-columns: 1.5fr 3fr;
@@ -448,6 +453,7 @@
         z-index: 1;
         bottom: 8px;
         left: 8px;
+
         @include respond-to('large') {
             max-height: 70vh;
             overflow-x: hidden;
@@ -455,11 +461,12 @@
             position: static;
             display: block;
         }
-        .list__card
-        {
+
+        .list__card {
             min-width: 90%;
             margin-right: 3%;
             border-radius: $border-radius-base;
+
             @include respond-to('large') {
                 margin-bottom: .5rem;
                 border-radius: unset;
@@ -470,44 +477,51 @@
     .map__wrapper {
         width: 100%;
         height: 70vh;
+
         @include respond-to('large') {
             height: 100%;
         }
     }
 }
-.map__view{
-    .list__card__schedule{
+
+.map__view {
+    .list__card__schedule {
         @include respond-to('large') {
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
         }
+
         @include respond-to('large') {
             grid-column-start: 2;
             grid-row-start: 1;
             text-align: left;
         }
     }
-    .list__card{
+
+    .list__card {
         @include respond-to('large') {
             padding: 1rem;
-            grid-template-columns: 6fr 4fr!important;
+            grid-template-columns: 6fr 4fr !important;
         }
     }
-    .list__card.active{
+
+    .list__card.active {
         background-color: c.$active;
     }
-    .list__card__schedule{
+
+    .list__card__schedule {
         @include respond-to('large') {
-        grid-column-start: unset;
-        grid-row-start: unset;
+            grid-column-start: unset;
+            grid-row-start: unset;
+        }
     }
-    }
-    .list__card__price{
+
+    .list__card__price {
         @include respond-to('large') {
-        grid-column-start: unset;
-        grid-row-start: unset;
-        text-align: left;
+            grid-column-start: unset;
+            grid-row-start: unset;
+            text-align: left;
         }
     }
 
@@ -518,7 +532,8 @@
             grid-row-start: unset;
             text-align: right;
         }
-        p{
+
+        p {
             @include respond-to('large') {
                 display: flex;
                 flex-direction: column;
@@ -534,20 +549,23 @@
                 display: block;
                 color: c.$black;
             }
+
             @include dollar-symbol()
         }
     }
 }
-.map
-{
-    &__tooltip{
+
+.map {
+    &__tooltip {
         padding: 0.1rem;
         background-color: c.$white;
         text-transform: capitalize;
-        p{
+
+        p {
             @include responsive-font(.7rem, .8rem);
         }
-        .tooltip__title__container{
+
+        .tooltip__title__container {
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -556,16 +574,53 @@
             border-bottom: thin solid c.$light-gray;
             padding-bottom: .8rem;
             margin-bottom: .8rem;
-            b{
+
+            b {
                 font-size: 1.2rem;
             }
         }
-        .close__label{
+
+        .close__label {
             color: c.$danger;
         }
-        .open__label{
+
+        .open__label {
             color: c.$success;
         }
     }
-   
+
+}
+
+.custom__largescreen {
+    &__icon {
+        background-color: c.$white;
+        border: 2px solid c.$white;
+        box-shadow: $box-shadow-default;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        text-align: center;
+        right: .5rem !important;
+        top: .5rem !important;
+    }
+    &__text {
+        color: c.$black;
+        font-size: 1rem;
+        padding: .5rem 1rem;
+    }
+}
+.fullscreen__active
+{
+    background-color: c.$whiteSmoke;
+    .map__view
+    {
+        @include respond-to('large') {
+            grid-template-columns: 30rem 3fr;
+        }       
+        .list__wrapper{
+            @include respond-to('large') {
+            height: 78vh;
+            max-height: unset;
+        }
+        }
+    }
 }
