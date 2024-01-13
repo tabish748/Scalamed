@@ -4,7 +4,7 @@ import mime from "mime";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const app = express();
-const port = 8082;
+const port = 8081;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static("src", {
   setHeaders: (res, path) => {

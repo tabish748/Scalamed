@@ -48,8 +48,7 @@ export default class Router {
           // Add localization logic here
           const localization = new Localization();
           localization.initLocalization().then(() => {
-            if (typeof afterRender === 'function') 
-            {
+            if (typeof afterRender === 'function') {
               afterRender();
             }
             if (typeof matched_route.init === 'function') {
